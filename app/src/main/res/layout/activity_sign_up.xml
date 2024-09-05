@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".auth.SignUpActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvSignUp"
+                android:gravity="center_horizontal"
+                app:layout_constraintBottom_toTopOf="@+id/ivUserImage"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:text="Please Sign Up"
+                android:layout_marginStart="29.90dp"
+                android:letterSpacing="0.04"
+                android:layout_marginEnd="195.00dp"
+                android:layout_marginTop="26.00dp"
+                android:layout_marginBottom="13.00dp"
+                android:textSize="26.00sp"
+                android:textColor="@color/Hardblue"
+                android:textStyle="bold"
+                />
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:layout_width="156.00dp"
+                android:layout_height="156.00dp"
+                android:id="@+id/ivUserImage"
+                android:layout_marginTop="10dp"
+                app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
+                android:scaleType="centerCrop"
+                android:src="@drawable/circle_shape"
+                app:layout_constraintEnd_toEndOf="parent"
+
+                app:layout_constraintHorizontal_bias="0.476"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvSignUp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvWelcome"
+                android:letterSpacing="0.04"
+                android:text="Upload Image"
+                android:textColor="@color/Hardblue"
+                android:textSize="19.50sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ivUserImage"
+                />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/llUserSelection"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@id/tvWelcome"
+                android:layout_marginTop="26.00dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvSelectionofUser"
+                    android:layout_gravity="center_vertical"
+                    android:letterSpacing="0.04"
+                    android:layout_marginStart="26.00dp"
+                    android:text="Select User Type*"
+                    android:textColor="@color/Hardblue"
+                    android:textSize="15.60sp"
+                    android:textStyle="bold"/>
+
+                <RadioGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_weight="1"
+                    android:id="@+id/radioGroup">
+
+                    <com.google.android.material.radiobutton.MaterialRadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/rbContractor"
+                        android:text="Boss"
+                        app:useMaterialThemeColors="false"
+                        android:checked="false"
+                        android:textColor="@color/Hardblue"
+                        android:layout_marginStart="32.50dp"
+                        android:button="@drawable/custom_radio_button"
+                        android:textStyle="bold"
+                        android:layout_weight="025"
+                        />
+
+                    <com.google.android.material.radiobutton.MaterialRadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/rbClient"
+                        android:text="Employee"
+                        app:useMaterialThemeColors="false"
+                        android:checked="false"
+                        android:textColor="@color/Hardblue"
+                        android:layout_marginStart="32.50dp"
+                        android:button="@drawable/custom_radio_button"
+                        android:textStyle="bold"
+                        android:layout_weight="025"
+                        />
+
+
+                </RadioGroup>
+
+
+            </LinearLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvNamell"
+                style="@style/LoginTextInputOuterFieldStyle"
+                android:layout_marginHorizontal="20.80dp"
+                app:boxStrokeColor="@color/Hardblue"
+                app:hintTextColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:endIconMode="clear_text"
+                app:endIconTint="@color/Hardblue"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/llUserSelection"
+                app:layout_constraintBottom_toTopOf="@+id/tvEmailLL"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/etName"
+                    style="@style/LoginTextInputInnerFieldStyle"
+                    android:background="@drawable/login_field"
+                    android:hint="Enter Your Name"
+                    android:inputType="textEmailAddress"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvEmailLL"
+                style="@style/LoginTextInputOuterFieldStyle"
+                android:layout_marginHorizontal="20.80dp"
+                app:boxStrokeColor="@color/Hardblue"
+                app:hintTextColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:endIconMode="clear_text"
+                app:endIconTint="@color/Hardblue"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvNamell">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/etEmail"
+                    style="@style/LoginTextInputInnerFieldStyle"
+                    android:background="@drawable/login_field"
+                    android:hint="Enter Your Email"
+                    android:inputType="textEmailAddress"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/etPasswordL"
+                style="@style/LoginTextInputOuterFieldStyle"
+                android:layout_marginHorizontal="20.80dp"
+                app:boxStrokeColor="@color/Hardblue"
+                app:hintTextColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:endIconMode="password_toggle"
+                app:endIconTint="@color/Hardblue"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvEmailLL">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/etPassword"
+                    style="@style/LoginTextInputInnerFieldStyle"
+                    android:hint="Enter Your Password"
+                    android:background="@drawable/login_field"
+                    android:inputType="textEmailAddress"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/etConfirmPasswordLL"
+                style="@style/LoginTextInputOuterFieldStyle"
+                android:layout_marginHorizontal="20.80dp"
+                app:boxStrokeColor="@color/Hardblue"
+                app:hintTextColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:endIconMode="password_toggle"
+                app:endIconTint="@color/Hardblue"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/etPasswordL"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/etConfirmPassword"
+                    style="@style/LoginTextInputInnerFieldStyle"
+                    android:hint="Confirm Your Password"
+                    android:background="@drawable/login_field"
+                    android:inputType="textEmailAddress"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="match_parent"
+                android:layout_height="65.00dp"
+                android:id="@+id/btnRegister"
+                android:layout_marginTop="13dp"
+                android:text="Register"
+                android:textAllCaps="false"
+                android:letterSpacing="0.1"
+                android:backgroundTint="@color/Hardblue"
+                android:textSize="19.50dp"
+                android:textStyle="bold"
+                app:cornerRadius="@dimen/_8sdp"
+                android:layout_marginHorizontal="20.80dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/etConfirmPasswordLL"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="6.50dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btnRegister">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:letterSpacing="0.01"
+                    android:text="Already have an account?"
+                    android:textColor="@color/light1"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvSignIn"
+                    android:letterSpacing="0.01"
+                    android:text="Sign In"
+                    android:textColor="@color/Hardblue"
+                    android:textStyle="bold"/>
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
