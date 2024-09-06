@@ -1,6 +1,7 @@
 package com.example.assigntodo.auth
 
 import android.app.Activity
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -13,10 +14,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
+import com.example.assigntodo.Boss
+import com.example.assigntodo.Employee
 import com.example.assigntodo.R
 import com.example.assigntodo.databinding.ActivitySignUpBinding
 import com.example.assigntodo.utils.Utils
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
@@ -84,12 +88,87 @@ class SignUpActivity : AppCompatActivity() {
         lifecycleScope.launch {
             try{
                 val uploadTask = storageReference.putFile(userImageUri!!).await()
-                val downloadUrl = uploadTask.storage.downloadUrl.await()
-                val imageUrl = downloadUrl.toString()
-            }
-            catch (e : Exception){
+                if(uploadTask.task.isSuccessful){
+                    val downloadUrl = storageReference.downloadUrl.await()
+                    saveUserData(name,email,password,downloadUrl)
+                }
+                else{
+                    Utils.hideDialog()
+                    showToast("Upload failed: ${uploadTask.task.exception?.message}")
+                }
 
             }
+            catch (e : Exception){
+                Utils.hideDialog()
+                showToast("Upload failed: ${e.message}")
+
+            }
+        }
+    }
+
+    private fun saveUserData(name: String, email: String, password: String, downloadUrl: Uri?) {
+        if(userType == "Boss"){
+            lifecycleScope.launch {
+                val db = FirebaseDatabase.getInstance().getReference("Boss")
+
+                try{
+                    val firebaseAuth = FirebaseAuth.getInstance().createUserWithEmailAndPassword(email,password).await()
+
+                    if(firebaseAuth.user != null) {
+                        val uId = firebaseAuth.user?.uid.toString()
+                        val boss = Boss(uId, name, email, password, downloadUrl.toString())
+                        db.child(uId).setValue(boss).await()
+                        Utils.hideDialog()
+                        Utils.showToast(this@SignUpActivity, "Signed Up Successfully")
+                        val intent = Intent(this@SignUpActivity, SignInActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    }
+                    else{
+                        Utils.hideDialog()
+                        Utils.showToast(this@SignUpActivity, "Signed Up Failed")
+                    }
+                }
+                catch (e : Exception){
+                    Utils.hideDialog()
+                    Utils.showToast(this@SignUpActivity, e.message.toString())
+                }
+            }
+        }
+
+        if(userType == "Employee"){
+            lifecycleScope.launch {
+                val db = FirebaseDatabase.getInstance().getReference("Employee")
+
+                try{
+                    val firebaseAuth = FirebaseAuth.getInstance().createUserWithEmailAndPassword(email,password).await()
+
+                    if(firebaseAuth.user != null) {
+                        val uId = firebaseAuth.user?.uid.toString()
+                        val emp = Employee(uId, name, email, password, downloadUrl.toString())
+                        db.child(uId).setValue(emp).await()
+                        Utils.hideDialog()
+                        Utils.showToast(this@SignUpActivity, "Signed Up Successfully")
+                        val intent = Intent(this@SignUpActivity, SignInActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    }
+                    else{
+                        Utils.hideDialog()
+                        Utils.showToast(this@SignUpActivity, "Signed Up Failed")
+                    }
+                }
+                catch (e : Exception){
+                    Utils.hideDialog()
+                    Utils.showToast(this@SignUpActivity, e.message.toString())
+                }
+            }
+        }
+    }
+
+    private fun showToast(message: String) {
+        runOnUiThread {
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
         }
     }
 
