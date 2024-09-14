@@ -1,22 +1,17 @@
 package com.example.assigntodo.auth
 
-import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
-import android.view.inputmethod.InputBinding
+import android.view.LayoutInflater
 import android.widget.RadioButton
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
-import com.example.assigntodo.Boss
-import com.example.assigntodo.Employee
-import com.example.assigntodo.R
+import com.example.assigntodo.Users
+import com.example.assigntodo.databinding.AccountDialogBinding
 import com.example.assigntodo.databinding.ActivitySignUpBinding
 import com.example.assigntodo.utils.Utils
 import com.google.firebase.auth.FirebaseAuth
@@ -51,6 +46,10 @@ class SignUpActivity : AppCompatActivity() {
             binding.btnRegister.setOnClickListener {
                 createUser()
             }
+            tvSignIn.setOnClickListener{
+                startActivity(Intent(this@SignUpActivity,SignInActivity::class.java))
+                finish()
+            }
         }
 
 
@@ -69,7 +68,13 @@ class SignUpActivity : AppCompatActivity() {
                 Utils.showToast(this,"Please select an image")
             }
             else if(password == confirmPassword){
-                uploadImageUri(name,email,password)
+               if (userType!=null)
+                    uploadImageUri(name,email,password)
+                else{
+                   Utils.hideDialog()
+                   Utils.showToast(this,"Select User Type")
+               }
+
             }
             else{
                 Utils.showToast(this,"Password does not match")
@@ -107,22 +112,32 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     private fun saveUserData(name: String, email: String, password: String, downloadUrl: Uri?) {
-        if(userType == "Boss"){
+
             lifecycleScope.launch {
-                val db = FirebaseDatabase.getInstance().getReference("Boss")
+                val db = FirebaseDatabase.getInstance().getReference("Users")
 
                 try{
                     val firebaseAuth = FirebaseAuth.getInstance().createUserWithEmailAndPassword(email,password).await()
 
                     if(firebaseAuth.user != null) {
+                        FirebaseAuth.getInstance().currentUser?.sendEmailVerification()?.addOnSuccessListener {
+                            val dialog = AccountDialogBinding.inflate(LayoutInflater.from(this@SignUpActivity))
+                            val alertDialog = AlertDialog.Builder(this@SignUpActivity)
+                                .setView(dialog.root)
+                                .create()
+                            Utils.hideDialog()
+                            alertDialog.show()
+                            dialog.btnOk.setOnClickListener {
+                                alertDialog.dismiss()
+                                startActivity(Intent(this@SignUpActivity, SignInActivity::class.java))
+                                finish()
+                            }
+                        }
                         val uId = firebaseAuth.user?.uid.toString()
-                        val boss = Boss(uId, name, email, password, downloadUrl.toString())
+                        val saveUserType = if(userType == "Boss") "Boss" else "Employee"
+                        val boss = Users(userType = saveUserType,userId = uId, userName =  name, userEmail = email, userPassword = password, userImage =  downloadUrl.toString())
                         db.child(uId).setValue(boss).await()
-                        Utils.hideDialog()
-                        Utils.showToast(this@SignUpActivity, "Signed Up Successfully")
-                        val intent = Intent(this@SignUpActivity, SignInActivity::class.java)
-                        startActivity(intent)
-                        finish()
+
                     }
                     else{
                         Utils.hideDialog()
@@ -134,36 +149,7 @@ class SignUpActivity : AppCompatActivity() {
                     Utils.showToast(this@SignUpActivity, e.message.toString())
                 }
             }
-        }
 
-        if(userType == "Employee"){
-            lifecycleScope.launch {
-                val db = FirebaseDatabase.getInstance().getReference("Employee")
-
-                try{
-                    val firebaseAuth = FirebaseAuth.getInstance().createUserWithEmailAndPassword(email,password).await()
-
-                    if(firebaseAuth.user != null) {
-                        val uId = firebaseAuth.user?.uid.toString()
-                        val emp = Employee(uId, name, email, password, downloadUrl.toString())
-                        db.child(uId).setValue(emp).await()
-                        Utils.hideDialog()
-                        Utils.showToast(this@SignUpActivity, "Signed Up Successfully")
-                        val intent = Intent(this@SignUpActivity, SignInActivity::class.java)
-                        startActivity(intent)
-                        finish()
-                    }
-                    else{
-                        Utils.hideDialog()
-                        Utils.showToast(this@SignUpActivity, "Signed Up Failed")
-                    }
-                }
-                catch (e : Exception){
-                    Utils.hideDialog()
-                    Utils.showToast(this@SignUpActivity, e.message.toString())
-                }
-            }
-        }
     }
 
     private fun showToast(message: String) {

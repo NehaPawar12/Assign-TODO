@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/boss_nav_graph"
+    app:startDestination="@id/employeesFragment">
+
+    <fragment
+        android:id="@+id/employeesFragment"
+        android:name="com.example.assigntodo.employeesFragment"
+        android:label="fragment_employees"
+        tools:layout="@layout/fragment_employees" >
+        <action
+            android:id="@+id/action_employeesFragment_to_worksFragments"
+            app:destination="@id/worksFragments" />
+    </fragment>
+    <fragment
+        android:id="@+id/worksFragments"
+        android:name="com.example.assigntodo.worksFragments"
+        android:label="fragment_works_fragments"
+        tools:layout="@layout/fragment_works_fragments" >
+        <action
+            android:id="@+id/action_worksFragments_to_assignWorkFragment"
+            app:destination="@id/assignWorkFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/assignWorkFragment"
+        android:name="com.example.assigntodo.assignWorkFragment"
+        android:label="fragment_assign_work"
+        tools:layout="@layout/fragment_assign_work" />
+</navigation>
