@@ -11,12 +11,122 @@
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
        android:id="@+id/tbAssignWork"
+       app:navigationIcon="@drawable/baseline_arrow_back_24"
        android:background="@color/Hardblue"
        app:layout_constraintEnd_toEndOf="parent"
        app:layout_constraintStart_toStartOf="parent"
        app:layout_constraintTop_toTopOf="parent"
        app:title="Assign Work"
        app:titleTextColor="@color/white"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tbAssignWork"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:orientation="vertical">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/etTitle"
+            android:hint="Work Title"
+            android:padding="15dp"
+            android:textColor="@color/medium"
+            android:maxLines="1"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:layout_marginTop="10dp"
+            android:textColorHint="@color/medium"
+            android:background="@drawable/edit_text_title"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvPriority"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/_2ssp"
+                android:text="Priority: "
+                android:textColor="@color/Hardblue"
+                android:textSize="@dimen/_15ssp"
+                android:textStyle="bold"/>
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:id="@+id/greenOval"
+                android:background="@drawable/greenoval"/>
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:id="@+id/yellowOval"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:background="@drawable/yellowoval"/>
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:id="@+id/redOval"
+                android:background="@drawable/redoval"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvDate"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/_30sdp"
+                android:text="Last Date: "
+                android:textColor="@color/Hardblue"
+                android:textSize="@dimen/_15ssp"
+                android:textStyle="bold"/>
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:id="@+id/datePicker"
+                android:layout_marginStart="@dimen/_5sdp"
+                android:background="@drawable/calender"/>
+
+
+        </LinearLayout>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
+            android:id="@+id/etWorkDesc"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/edit_text_title"
+            android:gravity="start"
+            android:hint="Work Description.."
+            android:padding="15dp"
+            android:textColor="@color/medium"
+            android:textColorHint="@color/medium"/>
+
+
+    </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/btnDone"
+        android:layout_margin="21dp"
+        android:layout_gravity="bottom|end"
+        android:tint="#FFFFFF"
+        android:backgroundTint="@color/white"
+        android:src="@drawable/tickmark"/>
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

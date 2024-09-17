@@ -14,6 +14,7 @@ import com.example.assigntodo.Users
 import com.example.assigntodo.databinding.AccountDialogBinding
 import com.example.assigntodo.databinding.ActivitySignUpBinding
 import com.example.assigntodo.utils.Utils
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
@@ -149,6 +150,8 @@ class SignUpActivity : AppCompatActivity() {
                     Utils.showToast(this@SignUpActivity, e.message.toString())
                 }
             }
+
+
 
     }
 

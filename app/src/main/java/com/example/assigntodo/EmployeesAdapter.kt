@@ -48,7 +48,8 @@ class EmployeesAdapter : RecyclerView.Adapter<EmployeesAdapter.EmployeeViewHolde
 
         }
         holder.itemView.setOnClickListener {
-            Navigation.findNavController(it).navigate(R.id.action_employeesFragment_to_worksFragments)
+            val action = employeesFragmentDirections.actionEmployeesFragmentToWorksFragments(empData)
+            Navigation.findNavController(it).navigate(action)
         }
     }
 }

@@ -22,10 +22,20 @@
         <action
             android:id="@+id/action_worksFragments_to_assignWorkFragment"
             app:destination="@id/assignWorkFragment" />
+        <argument
+            android:name="employeeData"
+            app:argType="com.example.assigntodo.Users" />
     </fragment>
     <fragment
         android:id="@+id/assignWorkFragment"
         android:name="com.example.assigntodo.assignWorkFragment"
         android:label="fragment_assign_work"
-        tools:layout="@layout/fragment_assign_work" />
+        tools:layout="@layout/fragment_assign_work" >
+        <argument
+            android:name="employeeDetail"
+            app:argType="com.example.assigntodo.Users" />
+        <action
+            android:id="@+id/action_assignWorkFragment_to_worksFragments"
+            app:destination="@id/worksFragments" />
+    </fragment>
 </navigation>
